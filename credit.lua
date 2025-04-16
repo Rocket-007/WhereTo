@@ -70,4 +70,9 @@ media.sfx.click:stop()
 media.sfx.click:play()
         State.switch(home, "fade", 0.6)--love.event.quit() 
     end
+    if key == "backspace" then
+media.sfx.click:stop()
+media.sfx.click:play()
+        State.switch(home, "fade", 0.6)--love.event.quit() 
+    end
 end

@@ -155,4 +155,9 @@ saveGame()
 saveGame()
         love.event.quit()
     end
+    if key == "backspace" then
+--clearAllData()
+saveGame()
+        love.event.quit()
+    end
 end

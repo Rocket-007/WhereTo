@@ -284,6 +284,18 @@ gooi.setGroupVisible("menu",false)
 State.switch(home, "fade", 0.6)--love.event.quit() 
 
     end
+    if key == "backspace" then
+saveGame()
+media.sfx.click:stop()
+media.sfx.click:play()
+if player then
+animation = newAnimation(player.img--[[love .graphics. newImage("rpg_sprite_walkfront.png" )]], player.w, player.h, 0.2)
+end
+gooi.setGroupVisible("menu",false)
+State.switch(home, "fade", 0.6)--love.event.quit() 
+
+    end
+
 end
 
 

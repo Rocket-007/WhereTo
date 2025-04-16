@@ -6,15 +6,17 @@
 
 
 function upy() 
-love . window. setMode ( 
-	-- FOR ANDROID!!
-	-- 0,0 ,
-	-- {fullscreen = true})
-	
-	-- FOR PC WINDOWS!!
-	640,800 ,
-	{fullscreen = false, borderless = false, resizable = false})
-
+	if love.system.getOS() == 'iOS' or love.system.getOS() == 'Android' then
+		print("mobile = true")
+		
+		love . window. setMode ( 
+		-- FOR ANDROID!!
+		0,0 , {fullscreen = true})
+	else
+		love . window. setMode ( 
+		-- FOR PC WINDOWS!!
+		640,800 , {fullscreen = false, borderless = false, resizable = false})
+	end
  end 
 
 require "gooi.gooi"
@@ -743,6 +745,7 @@ tapx, tapy, tapx2, tapy2=nil, nil,nil, nil
 end
 
 function game:update (dt)
+custom_GameMouseMoved()
 --return end 
 gooi.update(dt)
 updatestrik(dt)
@@ -1042,7 +1045,7 @@ local vip=t[i]
 --love.graphics.print("heree.    ".. tostring(i)..'    '..tostring(Done)  , 100,10)
 end
 
-if drag and tapx2 then
+if drag and tapx and tapx2 then
 love.graphics.line(tapx, tapy, tapx2, tapy2)
 dashTo=getDirec(tapx, tapy, tapx2, tapy2)
 end
@@ -1140,12 +1143,22 @@ local rand=love. math.random(1,#spritesSet)
 	else
 		--table.remove(sprites)
 	end
+	if love.system.getOS() == 'iOS' or love.system.getOS() == 'Android' then
+		print("mobile = true")
+		return
+	end
+	_touchpressed(1, x, y)
 end
 
+function game:mousereleased(x,y)
+	if love.system.getOS() == 'iOS' or love.system.getOS() == 'Android' then
+		print("mobile = true")
+		return
+	end
+	_touchreleased(1, x, y)
+end
 
-
-
-function game:touchpressed (id, x,y)
+function _touchpressed(id, x, y)
 --gooi.pressed(id, x, y)
 table.insert(secondSta,{secondX,secondY})
 	tapx = x
@@ -1153,8 +1166,11 @@ table.insert(secondSta,{secondX,secondY})
 	drag = true
 end
 
+function game:touchpressed (id, x,y)
+	_touchpressed(id, x, y)
+end
 
-function game:touchreleased(id, x, y) 
+function _touchreleased(id, x, y)
 --gooi.released(id, x, y) 
 table.insert(secondRel,{secondX,secondY})
 	tapRelx = x
@@ -1182,6 +1198,10 @@ end
 end
 end
 
+function game:touchreleased(id, x, y) 
+	_touchreleased(id, x, y)
+end
+
 
 function game:touchmoved (id, x, y) 
 --gooi.moved(id, x, y) 
@@ -1190,6 +1210,15 @@ function game:touchmoved (id, x, y)
 --calkX,calkY=tapx-tapx2,tapy-tapy2
 end
 
+function custom_GameMouseMoved()
+	if love.system.getOS() == 'iOS' or love.system.getOS() == 'Android' then
+		print("mobile = true")
+		return
+	end
+	if drag then
+		tapx2, tapy2 = love.mouse.getPosition()
+	end
+end
 
 function love.touchpressed (id, x,y)
 gooi.pressed(id, x, y)

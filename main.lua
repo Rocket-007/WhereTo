@@ -6,8 +6,14 @@
 
 
 function upy() 
-love . window. setMode ( 0,0 ,
-{fullscreen = true})
+love . window. setMode ( 
+	-- FOR ANDROID!!
+	-- 0,0 ,
+	-- {fullscreen = true})
+	
+	-- FOR PC WINDOWS!!
+	640,800 ,
+	{fullscreen = false, borderless = false, resizable = false})
 
  end 
 
@@ -1195,3 +1201,12 @@ function love.touchmoved (id, x, y)
 gooi.moved(id, x, y) 
 end
 
+
+-- TOOK ME a LOONGG while in 2025 to figure this makes it work on window
+function love.mousepressed (x,y, button)
+	gooi.pressed()
+end
+
+function love.mousereleased(x, y, button) 
+	gooi.released() 
+end

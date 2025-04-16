@@ -1220,6 +1220,17 @@ function custom_GameMouseMoved()
 	end
 end
 
+function game:keypressed(key)
+	-- WINDOWS KEY SUPPORT
+	if key == "left" then
+		dashTo="l"
+		_touchreleased(0, 0, 0)
+	elseif  key == "right" then
+		dashTo="r"
+		_touchreleased(0, 0, 0)
+	end
+end
+
 function love.touchpressed (id, x,y)
 gooi.pressed(id, x, y)
 end
